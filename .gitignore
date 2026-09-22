@@ -1,0 +1,23 @@
+# Android / Gradle
+.gradle/
+.gradle-cache/
+build/
+**/build/
+local.properties
+*.iml
+.idea/
+.vscode/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Project workspace noise
+PixelLab/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
