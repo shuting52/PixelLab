@@ -1,0 +1,56 @@
+name: Android Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for Android Gradle project
+        shell: bash
+        run: |
+          if [ ! -f "gradlew" ] || { [ ! -f "settings.gradle" ] && [ ! -f "settings.gradle.kts" ]; }; then
+            echo "No standard Android Gradle project was detected in this repo."
+            echo "This workspace currently has Android resources, but it is missing the Gradle project files required to build an APK/AAB."
+            echo "Once the original Android project files are added, this workflow will build automatically."
+            exit 0
+          fi
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: '**/build/outputs/apk/debug/*.apk'
+          if-no-files-found: warn
+
+      - name: Build release bundle
+        run: ./gradlew bundleRelease
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: '**/build/outputs/bundle/release/*.aab'
+          if-no-files-found: warn
