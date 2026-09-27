@@ -1,0 +1,6 @@
+{
+  "versionCode": 2,
+  "versionName": "2.0.0",
+  "updateUrl": "https://github.com/shuting52/PixelLab/releases",
+  "releaseNotes": "- Added new Photoshop-style FX panel demo\n- Improved UI for layer effects\n- Added version detection and update prompt\n- Optimized animation and usability"
+}

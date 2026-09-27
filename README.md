@@ -1,48 +1,153 @@
 # PixelLab
 
-PixelLab is an Android project workspace currently stored as a resource-heavy app extraction. This repository contains the app's Android package structure, compiled resources, asset bundles, and metadata needed to preserve the project state in GitHub.
+PixelLab is a design and prototyping repository for Android app UI development, layered effect exploration, and AI-assisted product iteration. The workspace currently contains both the extracted Android resources and a runnable demo project for a Photoshop-like FX panel.
 
 ## Project status
 
-This workspace is not a complete Gradle Android source project yet. It appears to contain an extracted Android app structure rather than the full original source tree. The main project artifacts present include:
+This repo is best understood as a hybrid project state:
 
-- Android manifest
-- compiled resources and assets
-- resource folders under `res/`
-- app package files and APK-related payloads
-- generated metadata for the app
+- It preserves the original Android app extraction and asset library
+- It includes a standalone demo under the Android FX prototype area
+- It is suitable for further development by AI agents, designers, and Android engineers
 
-## Included files
+The current repo includes:
 
-The repository currently contains directories such as:
+- Android resource folders and metadata
+- extracted app assets and package content
+- a prototype Android app for FX editing and UI experiments
+- a remote version-checking and update popup concept
 
-- `assets/` for images, fonts, stickers, effects, and presets
-- `res/` for Android XML drawables, layouts, values, menus, and XML configs
-- `PixelLab/` for project-specific app content
-- `AndroidManifest.xml` and compiled resources like `resources.arsc`
+## Repository structure
 
-## Build status
+- assets/ — image assets, fonts, stickers, effects, presets, background packs
+- res/ — Android resource XML, drawables, layouts, styles, menus
+- PixelLab/ — project-specific app content
+- android_fx_demo/ — runnable Android sample app for FX panel prototype
+- app_version.json — remote version metadata for update detection
+- .github/workflows/ — CI workflow and automation hooks
 
-A GitHub Actions workflow is already configured at [.github/workflows/build.yml](.github/workflows/build.yml). It checks for a standard Android Gradle project and will run automatically when the missing project files are restored.
+## Android FX demo overview
 
-At the moment, the workflow is intentionally safe: it exits gracefully if `gradlew` and Gradle settings files are not present, because the full original Android project files are not in this workspace.
+The demo app under [android_fx_demo](android_fx_demo) is designed to simulate a Photoshop-style layer FX panel and UI pipeline.
 
-## What is needed to build the APK
+Current features include:
 
-To compile this app normally, you need the original Android source project files, including at least:
+- Drop shadow
+- Inner shadow
+- Outer glow
+- Inner glow
+- Bevel and emboss
+- Color overlay
+- Gradient overlay
+- Pattern overlay
+- Stroke controls
+- Version update detection flow
+- Animated update dialog
 
-- `gradlew`
-- `settings.gradle` or `settings.gradle.kts`
-- `build.gradle` / `build.gradle.kts`
-- module-level Gradle config
-- Android SDK configuration and signing setup
+## How to continue developing with AI Agent
 
-Once those files are restored, the GitHub Action will build the debug APK and release bundle automatically.
+This project is intentionally structured to support second-stage development through AI-driven iteration. The typical workflow is:
 
-## Repository setup
+1. Define the business goal clearly
+2. Provide the project context and constraints to the AI agent
+3. Let the agent read the relevant code, modify files, and produce a patch
+4. Review the output and verify the result
+5. Commit only after the change is tested or validated as far as possible
 
-This repository is already connected to GitHub and the default branch is `main`.
+### Recommended development pattern
+
+Use a session structure like this:
+
+- Goal: implement a new feature or bug fix
+- Scope: only the relevant module or demo folder
+- Constraints: no full app rewrite, keep compatibility with the current Android setup
+- Verification: run project checks or highlight environment limits if SDK is unavailable
+
+### Example agent prompts
+
+Use prompts such as the following:
+
+- Improve the Android FX demo to look more like Adobe Photoshop layer styles
+- Add a modern version update dialog with CSS-like animation and download progress
+- Refactor the FX panel to support live preview of multiple effects at once
+- Add a settings page for customizing brush, shadow, and glow presets
+- Build a reusable update-check service that reads a remote JSON version manifest
+
+### Good prompt structure
+
+A strong AI prompt should include:
+
+- project background
+- target module or file
+- expected behavior
+- UI/UX style reference
+- constraints such as Android SDK availability or no new dependency policy
+- verification expectation
+
+Example:
+
+I am working on the Android FX demo inside this repo. Please read the existing FX panel code and implement a new version update dialog with modern CSS-inspired motion, dark theme styling, and a download progress state. Keep the change isolated to the demo app and do not break the current UI structure.
+
+## Recommended second-stage AI workflow
+
+### 1. Start with a narrow task
+
+Avoid asking the agent to rewrite the entire app at once. Prefer smaller goals such as:
+
+- implement a new update popup
+- add a preset system
+- improve the FX list UX
+- support live toggle states
+
+### 2. Ask for code references
+
+Request the agent to identify the exact files involved before editing:
+
+- MainActivity
+- FxPanelView
+- UpdateDialogActivity
+- VersionCheckService
+- AndroidManifest
+
+### 3. Keep the scope realistic
+
+The repo is partially extracted and does not include a full production Android Gradle source tree. The AI agent should be told to work within the demo app or extracted resource environment rather than assuming a complete original project exists.
+
+### 4. Validate what is possible
+
+If Android SDK is not available in the environment, the AI agent should still produce code and note the limitations honestly. Do not assume runtime verification is possible without Gradle or Android tooling.
+
+## Remote update concept
+
+The repo includes a version metadata file at [app_version.json](app_version.json). The intended flow is:
+
+- app checks remote JSON
+- compares current versionCode to remote versionCode
+- shows update popup when a newer version exists
+- opens the release URL or install page
+
+This is designed to support a future remote update mechanism for app distribution and release validation.
+
+## Development philosophy
+
+This project is suitable for iterative enhancement rather than one-shot build completion. The best path is:
+
+- prototype fast
+- refine UI interactions
+- keep logic modular
+- validate code quality with static inspection and targeted checks
+- prepare for final integration when the full original Android source is available
+
+## Practical next steps
+
+If continuing the project with AI agent support, the next high-value tasks are:
+
+- upgrade the FX panel to support real layered effects preview
+- add preset save and import logic
+- refine the animated update dialog UX
+- create a tighter GitHub release versioning workflow
+- connect a remote release manifest to app startup checks
 
 ## Notes
 
-This is best treated as a preserved Android app snapshot or extracted asset repository. If the original project source is recovered later, this repo can be upgraded into a fully buildable Android project without losing the asset and resource history already tracked in Git.
+This repo should be treated as a preserved project snapshot and prototype environment. It is well suited for AI-assisted iteration, UI concept development, and Android feature prototyping while the original source tree remains incomplete.
