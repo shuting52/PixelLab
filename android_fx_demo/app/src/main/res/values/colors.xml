@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pixel_blue">#3B82F6</color>
+    <color name="pixel_purple">#8B5CF6</color>
+    <color name="pixel_cyan">#67E8F9</color>
+    <color name="pixel_bg_deep">#070B13</color>
+    <color name="pixel_bg_panel">#0F172A</color>
+    <color name="pixel_bg_card">#111827</color>
+</resources>

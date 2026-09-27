@@ -2,14 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="FX Demo"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        android:theme="@style/Theme.PixelLab">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,7 +23,7 @@
         <activity
             android:name=".UpdateDialogActivity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.Dialog" />
+            android:theme="@style/Theme.PixelLab.Dialog" />
     </application>
 
 </manifest>

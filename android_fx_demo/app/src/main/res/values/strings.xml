@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">FX Demo</string>
+    <string name="app_name">PixelLab FX</string>
+    <string name="app_tagline">Layer styles and visual effects</string>
+    <string name="label_preview">Preview</string>
+    <string name="label_effects">Effects</string>
+    <string name="label_layer_style">Layer Style</string>
 </resources>

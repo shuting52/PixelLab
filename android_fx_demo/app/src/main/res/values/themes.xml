@@ -1,6 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.MaterialComponents.DayNight.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@android:color/black</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
+    <style name="Theme.PixelLab" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/pixel_blue</item>
+        <item name="colorPrimaryVariant">@color/pixel_purple</item>
+        <item name="colorSecondary">@color/pixel_cyan</item>
+        <item name="android:statusBarColor">@color/pixel_bg_deep</item>
+        <item name="android:navigationBarColor">@color/pixel_bg_deep</item>
+        <item name="android:windowBackground">@color/pixel_bg_deep</item>
+    </style>
+
+    <style name="Theme.PixelLab.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 </resources>
