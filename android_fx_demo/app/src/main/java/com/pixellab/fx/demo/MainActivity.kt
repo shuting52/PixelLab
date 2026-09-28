@@ -31,6 +31,13 @@ class MainActivity : AppCompatActivity() {
     private var distanceValue = 18f
     private var sizeValue = 20f
     private var selectedTextPreset: TextFxType = TextFxType.GRADIENT_FILL
+    private var textFxSizeValue = 60f
+    private var textFxShadowBlurValue = 16f
+    private var textFxShadowDxValue = 6f
+    private var textFxShadowDyValue = 6f
+    private var textFxGlowValue = 18f
+    private var textFxStrokeValue = 8f
+    private var textFxBevelDepthValue = 7f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -278,6 +285,47 @@ class MainActivity : AppCompatActivity() {
         }
         controlsCard.addView(controlsTitle)
 
+        val textFxTitle = TextView(this).apply {
+            text = "Text FX"
+            textSize = 14f
+            setTextColor(Color.parseColor("#b4c4d8"))
+            setPadding(0, 12, 0, 8)
+        }
+        controlsCard.addView(textFxTitle)
+
+        val textFxSliderGroup = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+        }
+        textFxSliderGroup.addView(makeSliderRow("Size", 20f, 150f, textFxSizeValue) { value ->
+            textFxSizeValue = value
+            applyTextFxPreset(selectedTextPreset)
+        })
+        textFxSliderGroup.addView(makeSliderRow("Shadow Blur", 0f, 40f, textFxShadowBlurValue) { value ->
+            textFxShadowBlurValue = value
+            applyTextFxPreset(selectedTextPreset)
+        })
+        textFxSliderGroup.addView(makeSliderRow("Shadow X", 0f, 30f, textFxShadowDxValue) { value ->
+            textFxShadowDxValue = value
+            applyTextFxPreset(selectedTextPreset)
+        })
+        textFxSliderGroup.addView(makeSliderRow("Shadow Y", 0f, 30f, textFxShadowDyValue) { value ->
+            textFxShadowDyValue = value
+            applyTextFxPreset(selectedTextPreset)
+        })
+        textFxSliderGroup.addView(makeSliderRow("Glow", 0f, 40f, textFxGlowValue) { value ->
+            textFxGlowValue = value
+            applyTextFxPreset(selectedTextPreset)
+        })
+        textFxSliderGroup.addView(makeSliderRow("Stroke", 0f, 30f, textFxStrokeValue) { value ->
+            textFxStrokeValue = value
+            applyTextFxPreset(selectedTextPreset)
+        })
+        textFxSliderGroup.addView(makeSliderRow("Bevel", 0f, 20f, textFxBevelDepthValue) { value ->
+            textFxBevelDepthValue = value
+            applyTextFxPreset(selectedTextPreset)
+        })
+        controlsCard.addView(textFxSliderGroup)
+
         val swatchRow = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
@@ -459,35 +507,35 @@ class MainActivity : AppCompatActivity() {
             TextFxType.DROP_SHADOW -> TextFxConfig(
                 text = "PS FX",
                 type = TextFxType.DROP_SHADOW,
-                textSize = 60f,
+                textSize = textFxSizeValue,
                 fillColor = Color.WHITE,
                 shadowColor = Color.argb(220, 0, 0, 0),
-                shadowRadius = 16f,
-                shadowDx = 6f,
-                shadowDy = 6f,
+                shadowRadius = textFxShadowBlurValue,
+                shadowDx = textFxShadowDxValue,
+                shadowDy = textFxShadowDyValue,
                 strokeColor = Color.BLACK,
                 strokeWidth = 2f
             )
             TextFxType.OUTER_GLOW -> TextFxConfig(
                 text = "PS FX",
                 type = TextFxType.OUTER_GLOW,
-                textSize = 60f,
+                textSize = textFxSizeValue,
                 fillColor = Color.WHITE,
                 glowColor = Color.argb(220, 119, 181, 255),
-                glowRadius = 18f
+                glowRadius = textFxGlowValue
             )
             TextFxType.STROKE -> TextFxConfig(
                 text = "PS FX",
                 type = TextFxType.STROKE,
-                textSize = 60f,
+                textSize = textFxSizeValue,
                 fillColor = Color.parseColor("#FFE082"),
                 strokeColor = Color.parseColor("#7C4DFF"),
-                strokeWidth = 8f
+                strokeWidth = textFxStrokeValue
             )
             TextFxType.GRADIENT_FILL -> TextFxConfig(
                 text = "PS FX",
                 type = TextFxType.GRADIENT_FILL,
-                textSize = 60f,
+                textSize = textFxSizeValue,
                 fillColor = Color.WHITE,
                 gradientColors = intArrayOf(
                     Color.parseColor("#FCB045"),
@@ -498,19 +546,19 @@ class MainActivity : AppCompatActivity() {
             TextFxType.BEVEL -> TextFxConfig(
                 text = "PS FX",
                 type = TextFxType.BEVEL,
-                textSize = 60f,
+                textSize = textFxSizeValue,
                 fillColor = Color.parseColor("#FCE4EC"),
                 bevelHighlight = Color.argb(180, 255, 255, 255),
                 bevelShadow = Color.argb(180, 70, 40, 15),
-                bevelDepth = 7f
+                bevelDepth = textFxBevelDepthValue
             )
             TextFxType.INNER_GLOW -> TextFxConfig(
                 text = "PS FX",
                 type = TextFxType.INNER_GLOW,
-                textSize = 60f,
+                textSize = textFxSizeValue,
                 fillColor = Color.WHITE,
                 glowColor = Color.argb(200, 255, 255, 255),
-                glowRadius = 12f
+                glowRadius = textFxGlowValue
             )
         }
         fxView.setSourceBitmap(TextFx.renderTextBitmap(config))
