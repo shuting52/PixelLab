@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private var opacityValue = 0.75f
     private var distanceValue = 18f
     private var sizeValue = 20f
+    private var selectedTextPreset: TextFxType = TextFxType.GRADIENT_FILL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -247,58 +248,8 @@ class MainActivity : AppCompatActivity() {
                 textSize = 11f
                 setTextColor(Color.WHITE)
                 setOnClickListener {
-                    val config = when (type) {
-                        TextFxType.DROP_SHADOW -> TextFxConfig(
-                            text = "PS FX",
-                            type = TextFxType.DROP_SHADOW,
-                            textSize = 60f,
-                            fillColor = Color.WHITE,
-                            shadowColor = Color.argb(220, 0, 0, 0),
-                            shadowRadius = 16f,
-                            shadowDx = 6f,
-                            shadowDy = 6f,
-                            strokeColor = Color.BLACK,
-                            strokeWidth = 2f
-                        )
-                        TextFxType.OUTER_GLOW -> TextFxConfig(
-                            text = "PS FX",
-                            type = TextFxType.OUTER_GLOW,
-                            textSize = 60f,
-                            fillColor = Color.WHITE,
-                            glowColor = Color.argb(220, 119, 181, 255),
-                            glowRadius = 18f
-                        )
-                        TextFxType.STROKE -> TextFxConfig(
-                            text = "PS FX",
-                            type = TextFxType.STROKE,
-                            textSize = 60f,
-                            fillColor = Color.parseColor("#FFE082"),
-                            strokeColor = Color.parseColor("#7C4DFF"),
-                            strokeWidth = 8f
-                        )
-                        TextFxType.GRADIENT_FILL -> TextFxConfig(
-                            text = "PS FX",
-                            type = TextFxType.GRADIENT_FILL,
-                            textSize = 60f,
-                            fillColor = Color.WHITE,
-                            gradientColors = intArrayOf(
-                                Color.parseColor("#FCB045"),
-                                Color.parseColor("#FD1D1D"),
-                                Color.parseColor("#833AB4")
-                            )
-                        )
-                        TextFxType.BEVEL -> TextFxConfig(
-                            text = "PS FX",
-                            type = TextFxType.BEVEL,
-                            textSize = 60f,
-                            fillColor = Color.parseColor("#FCE4EC"),
-                            bevelHighlight = Color.argb(180, 255, 255, 255),
-                            bevelShadow = Color.argb(180, 70, 40, 15),
-                            bevelDepth = 7f
-                        )
-                    }
-                    val bitmap = TextFx.renderTextBitmap(config)
-                    fxView.setSourceBitmap(bitmap)
+                    selectedTextPreset = type
+                    applyTextFxPreset(type)
                 }
             }
             textPreview.addView(preset)
@@ -388,26 +339,7 @@ class MainActivity : AppCompatActivity() {
             setBackgroundColor(Color.parseColor("#334a6b"))
             setTextColor(Color.WHITE)
             setOnClickListener {
-                val tb = TextFx.renderTextBitmap(
-                    TextFxConfig(
-                        text = "PS FX",
-                        type = TextFxType.GRADIENT_FILL,
-                        textSize = 72f,
-                        fillColor = Color.WHITE,
-                        gradientColors = intArrayOf(
-                            Color.parseColor("#FFD54F"),
-                            Color.parseColor("#FF7043"),
-                            Color.parseColor("#7E57C2")
-                        ),
-                        shadowColor = Color.argb(220, 0, 0, 0),
-                        shadowRadius = 22f,
-                        shadowDx = 8f,
-                        shadowDy = 8f,
-                        strokeColor = Color.parseColor("#4E342E"),
-                        strokeWidth = 6f
-                    )
-                )
-                fxView.setSourceBitmap(tb)
+                applyTextFxPreset(selectedTextPreset)
             }
         }
         actionBar.addView(cancel)
@@ -520,6 +452,68 @@ class MainActivity : AppCompatActivity() {
             FxType.STROKE -> "Stroke"
         }
         fxView.setEffects(listOf(fx))
+    }
+
+    private fun applyTextFxPreset(type: TextFxType) {
+        val config = when (type) {
+            TextFxType.DROP_SHADOW -> TextFxConfig(
+                text = "PS FX",
+                type = TextFxType.DROP_SHADOW,
+                textSize = 60f,
+                fillColor = Color.WHITE,
+                shadowColor = Color.argb(220, 0, 0, 0),
+                shadowRadius = 16f,
+                shadowDx = 6f,
+                shadowDy = 6f,
+                strokeColor = Color.BLACK,
+                strokeWidth = 2f
+            )
+            TextFxType.OUTER_GLOW -> TextFxConfig(
+                text = "PS FX",
+                type = TextFxType.OUTER_GLOW,
+                textSize = 60f,
+                fillColor = Color.WHITE,
+                glowColor = Color.argb(220, 119, 181, 255),
+                glowRadius = 18f
+            )
+            TextFxType.STROKE -> TextFxConfig(
+                text = "PS FX",
+                type = TextFxType.STROKE,
+                textSize = 60f,
+                fillColor = Color.parseColor("#FFE082"),
+                strokeColor = Color.parseColor("#7C4DFF"),
+                strokeWidth = 8f
+            )
+            TextFxType.GRADIENT_FILL -> TextFxConfig(
+                text = "PS FX",
+                type = TextFxType.GRADIENT_FILL,
+                textSize = 60f,
+                fillColor = Color.WHITE,
+                gradientColors = intArrayOf(
+                    Color.parseColor("#FCB045"),
+                    Color.parseColor("#FD1D1D"),
+                    Color.parseColor("#833AB4")
+                )
+            )
+            TextFxType.BEVEL -> TextFxConfig(
+                text = "PS FX",
+                type = TextFxType.BEVEL,
+                textSize = 60f,
+                fillColor = Color.parseColor("#FCE4EC"),
+                bevelHighlight = Color.argb(180, 255, 255, 255),
+                bevelShadow = Color.argb(180, 70, 40, 15),
+                bevelDepth = 7f
+            )
+            TextFxType.INNER_GLOW -> TextFxConfig(
+                text = "PS FX",
+                type = TextFxType.INNER_GLOW,
+                textSize = 60f,
+                fillColor = Color.WHITE,
+                glowColor = Color.argb(200, 255, 255, 255),
+                glowRadius = 12f
+            )
+        }
+        fxView.setSourceBitmap(TextFx.renderTextBitmap(config))
     }
 
     private fun createDemoBitmap(): Bitmap {
