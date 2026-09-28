@@ -41,6 +41,8 @@ Current features include:
 - Gradient overlay
 - Pattern overlay
 - Stroke controls
+- Photoshop-style text FX presets
+- Text shadow / glow / stroke / gradient / bevel preview
 - Version update detection flow
 - Animated update dialog
 
